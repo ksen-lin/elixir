@@ -136,13 +136,13 @@ def get_project_error_page(req, resp, exception: ElixirProjectError):
     #     **exception.extra_template_args,
     # }
 
-    template = req.context.jinja_env.get_template('error.html')
-    result = template.render(template_ctx)
+    # template = req.context.jinja_env.get_template('error.html')
+    # result = template.render(template_ctx)
 
     # if exception.query is not None:
     #     exception.query.close()
 
-    return result
+    return "tleb failure"
 
 # Generate an error page from falcon exceptions
 def get_error_page(req, resp, exception: ElixirProjectError):
