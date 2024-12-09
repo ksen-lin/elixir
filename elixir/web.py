@@ -80,22 +80,22 @@ def get_github_issue_link(details: str):
 
 # Generate an error page from ElixirProjectError
 def get_project_error_page(req, resp, exception: ElixirProjectError):
-    report_error_details = generate_error_details(req, resp, exception.title, exception.description)
+    # report_error_details = generate_error_details(req, resp, exception.title, exception.description)
 
     template_ctx = {
-        'projects': get_projects(req.context.config.project_dir),
-        'topbar_families': TOPBAR_FAMILIES,
-        'current_version_path': (None, None, None),
-        'current_family': 'A',
-        'source_base_url': '/',
-        'elixir_version_string': req.context.config.version_string,
-        'elixir_repo_link': req.context.config.repo_link,
+        # 'projects': get_projects(req.context.config.project_dir),
+        # 'topbar_families': TOPBAR_FAMILIES,
+        # 'current_version_path': (None, None, None),
+        # 'current_family': 'A',
+        # 'source_base_url': '/',
+        # 'elixir_version_string': req.context.config.version_string,
+        # 'elixir_repo_link': req.context.config.repo_link,
 
-        'referer': req.referer if req.referer != req.uri else None,
-        'bug_report_link': get_github_issue_link(report_error_details),
-        'report_error_details': report_error_details,
+        # 'referer': req.referer if req.referer != req.uri else None,
+        # 'bug_report_link': get_github_issue_link(report_error_details),
+        # 'report_error_details': report_error_details,
 
-        'error_title': exception.title,
+        # 'error_title': exception.title,
     }
 
     # if exception.project is not None and exception.query is not None:
@@ -131,16 +131,16 @@ def get_project_error_page(req, resp, exception: ElixirProjectError):
     # if exception.description is not None:
     #     template_ctx['error_details'] = exception.description
 
-    template_ctx = {
-        **template_ctx,
-        **exception.extra_template_args,
-    }
+    # template_ctx = {
+    #     **template_ctx,
+    #     **exception.extra_template_args,
+    # }
 
     template = req.context.jinja_env.get_template('error.html')
     result = template.render(template_ctx)
 
-    if exception.query is not None:
-        exception.query.close()
+    # if exception.query is not None:
+    #     exception.query.close()
 
     return result
 
