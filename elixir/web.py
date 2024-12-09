@@ -98,38 +98,38 @@ def get_project_error_page(req, resp, exception: ElixirProjectError):
         'error_title': exception.title,
     }
 
-    if exception.project is not None and exception.query is not None:
-        # Add details about current project
-        query = exception.query
-        project = exception.project
-        version = exception.version
+    # if exception.project is not None and exception.query is not None:
+    #     # Add details about current project
+    #     query = exception.query
+    #     project = exception.project
+    #     version = exception.version
 
-        versions_raw = get_versions_cached(query, req.context, project)
-        get_url_with_new_version = lambda v: stringify_source_path(project, v, '/')
-        versions, current_version_path = get_versions(versions_raw, get_url_with_new_version, version)
+    #     versions_raw = get_versions_cached(query, req.context, project)
+    #     get_url_with_new_version = lambda v: stringify_source_path(project, v, '/')
+    #     versions, current_version_path = get_versions(versions_raw, get_url_with_new_version, version)
 
-        template_ctx = {
-            **template_ctx,
+    #     template_ctx = {
+    #         **template_ctx,
 
-            'current_project': project,
-            'versions': versions,
-            'current_version_path': current_version_path,
-        }
+    #         'current_project': project,
+    #         'versions': versions,
+    #         'current_version_path': current_version_path,
+    #     }
 
 
-        if version is None:
-            # If details about current version are not available, make base links
-            # point to latest.
-            # current_tag is not set to latest to avoid latest being highlighted in the sidebar
-            version = query.query('latest')
-        else:
-            template_ctx['current_tag'] = version
+    #     if version is None:
+    #         # If details about current version are not available, make base links
+    #         # point to latest.
+    #         # current_tag is not set to latest to avoid latest being highlighted in the sidebar
+    #         version = query.query('latest')
+    #     else:
+    #         template_ctx['current_tag'] = version
 
-        template_ctx['source_base_url'] = get_source_base_url(project, version)
-        template_ctx['ident_base_url'] = get_ident_base_url(project, version)
+    #     template_ctx['source_base_url'] = get_source_base_url(project, version)
+    #     template_ctx['ident_base_url'] = get_ident_base_url(project, version)
 
-    if exception.description is not None:
-        template_ctx['error_details'] = exception.description
+    # if exception.description is not None:
+    #     template_ctx['error_details'] = exception.description
 
     template_ctx = {
         **template_ctx,
@@ -770,8 +770,7 @@ def error_serializer(req, resp, exception):
             resp.content_type = falcon.MEDIA_JSON
         elif preferred == falcon.MEDIA_HTML:
             if isinstance(exception, ElixirProjectError):
-                # resp.text = get_project_error_page(req, resp, exception)
-                resp.text = "failure tleb"
+                resp.text = get_project_error_page(req, resp, exception)
             else:
                 resp.text = get_error_page(req, resp, exception)
             resp.content_type = falcon.MEDIA_HTML
