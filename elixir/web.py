@@ -85,7 +85,7 @@ def get_project_error_page(req, resp, exception: ElixirProjectError):
     template_ctx = {
         # 'projects': get_projects(req.context.config.project_dir),
         'topbar_families': TOPBAR_FAMILIES,
-        # 'current_version_path': (None, None, None),
+        'current_version_path': (None, None, None),
         # 'current_family': 'A',
         # 'source_base_url': '/',
         # 'elixir_version_string': req.context.config.version_string,
