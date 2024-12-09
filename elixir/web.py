@@ -770,7 +770,8 @@ def error_serializer(req, resp, exception):
             resp.content_type = falcon.MEDIA_JSON
         elif preferred == falcon.MEDIA_HTML:
             if isinstance(exception, ElixirProjectError):
-                resp.text = get_project_error_page(req, resp, exception)
+                # resp.text = get_project_error_page(req, resp, exception)
+                resp.text = "failure tleb"
             else:
                 resp.text = get_error_page(req, resp, exception)
             resp.content_type = falcon.MEDIA_HTML
